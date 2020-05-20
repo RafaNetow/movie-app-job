@@ -51,13 +51,11 @@ d by the UK public through Channel 4's website and readers of The Mail newspaper
                         console.log(data);
                         email.text = email.text  + `Title: ${data.Title} Year: ${data.Year} Rate: ${data.Rated} Actors:${data.Actors} Ploto:${data.Plot}`
                         console.log(  email.text );            
-            }).then(algo => {
-                console.log(email.text)
-            }).then(data => {
-                
-            mg.messages().send(data, function (error, body) {
+            }).then(() => {
+                    
+            mg.messages().send(email, function (error, body) {
 	            console.log(body);
-});
+            })
             }).
             catch(err => console.log(err))
                 });
