@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const coolMovies = require('./movieList.json')
 
 let keepRunning = true;
 
@@ -8,8 +9,8 @@ function run() {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-
-                console.log(data);
+                console.log(coolMovies);
+                
                 let url2 = 'http://www.omdbapi.com/?i=tt3896198&apikey=f29c80cb&t=lalaland';
                 fetch(url2)
                     .then(response => response.json())
