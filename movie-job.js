@@ -6,17 +6,13 @@ let movieAppMessage = "Hello , we are happy that you are on our app, we recomend
 let movieMessage = ' ';
 const mailgun = require("mailgun-js");
 const DOMAIN = "sandbox05185197488b4b23967712dc2b077597.mailgun.org";
-const mg = mailgun({apiKey: "690467effb55c56921b6e5812aa5ab5f-e5e67e3e-6c51f431", domain: DOMAIN});
+const mg = mailgun({ apiKey: "690467effb55c56921b6e5812aa5ab5f-e5e67e3e-6c51f431", domain: DOMAIN });
 let email = {
-	from: "Mailgun Sandbox <postmaster@sandbox05185197488b4b23967712dc2b077597.mailgun.org>",
-	to: "rafanetow@gmail.com",
-	subject: "Hello",
-	text: "Hello There , you make some subscribe to my page and this are the movies for you:"
+    from: "Mailgun Sandbox <postmaster@sandbox05185197488b4b23967712dc2b077597.mailgun.org>",
+    to: "rafanetow@gmail.com",
+    subject: "Hello",
+    text: "Hello There , you make some subscribe to my page and this are the movies for you:"
 };
-/*
-mg.messages().send(data, function (error, body) {
-	console.log(body);
-});*/
 
 
 function run() {
@@ -25,26 +21,30 @@ function run() {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                let movies = data[1].typeOfMovies.split(",");
-      
-                movies.forEach(element =>  {
-                    let url2 = `http://www.omdbapi.com/?i=tt3896198&apikey=f29c80cb&t=${coolMovies[element]}`;
-                    fetch(url2)
-                    .then(response => response.json())
-                    .then(data => {
-                        email.text = email.text  + `Title: ${data.Title} Year: ${data.Year} Rate: ${data.Rated} Actors:${data.Actors} Ploto:${data.Plot}`
-                        console.log(  email.text );            
-            }).then(() => {
-                    
-            mg.messages().send(email, function (error, body) {
-	            console.log(body);
-            })
+                data.forEach(user => {
+                    let movies = user.typeOfMovies.split(",");
+                    let userEmail = user.email;
+                    email.to = userEmail;
+                    movies.forEach(element => {
+                        let url2 = `http://www.omdbapi.com/?i=tt3896198&apikey=f29c80cb&t=${coolMovies[element]}`;
+                        fetch(url2)
+                            .then(response => response.json())
+                            .then(data => {
+                                email.text = email.text + `Title: ${data.Title} Year: ${data.Year} Rate: ${data.Rated} Actors:${data.Actors} Ploto:${data.Plot}`
+                            }).then(() => {
+
+                                mg.messages().send(email, function (error, body) {
+                                    console.log(body);
+
+                                });
+                            })
+                    });
+               
             }).
-            catch(err => console.log(err))
-                });
+                    catch(err => console.log(err))
+
+                    .catch(err => console.log(err))
+                setTimeout(run, "50000");
             })
-            .catch(err => console.log(err))
-        setTimeout(run, "50000");
-    }
-}
-setTimeout(run, "5000");
+    }}
+    setTimeout(run, "5000")
