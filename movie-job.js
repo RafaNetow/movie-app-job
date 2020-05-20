@@ -12,14 +12,14 @@ function run() {
             .then(response => response.json())
             .then(data => {
                 let movies = data[1].typeOfMovies.split(",");
-                console.log(movies["Midway"])
+                console.log("..",coolMovies["actions"])
                 console.log(movies)
                 console.log(data[1].typeOfMovies)
                 console.log(coolMovies);
                 ///thinking
                 let url2 = 'http://www.omdbapi.com/?i=tt3896198&apikey=f29c80cb&t=lalaland';
                 movies.forEach(element =>  {
-                    console.log("...", element);
+                    console.log("......",coolMovies[element])
                 });
                 fetch(url2)
                     .then(response => response.json())
