@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 const coolMovies = require('./movieList.json')
 
 let keepRunning = true;
+let movieAppMessage = "Hello , we are happy that you are on our app, we recomend you this movies:"
 
 function run() {
     if (keepRunning) {
@@ -9,13 +10,16 @@ function run() {
         fetch(url)
             .then(response => response.json())
             .then(data => {
+                let movies = data[1].typeOfMovies.split(",");
+                console.log(movies)
+                console.log(data[1].typeOfMovies)
                 console.log(coolMovies);
-                
+                ///thinking
                 let url2 = 'http://www.omdbapi.com/?i=tt3896198&apikey=f29c80cb&t=lalaland';
                 fetch(url2)
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data);
+                      
             }).catch(err => console.log(err))
             })
             .catch(err => console.log(err))
