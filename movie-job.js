@@ -13,9 +13,10 @@ const data = {
 	subject: "Hello",
 	text: "Testing some Mailgun awesomness!"
 };
+/*
 mg.messages().send(data, function (error, body) {
 	console.log(body);
-});
+});*/
 
 
 function run() {
@@ -30,11 +31,14 @@ function run() {
                 console.log(data[1].typeOfMovies)
                 console.log(coolMovies);
                 ///thinking
-                let url2 = 'http://www.omdbapi.com/?i=tt3896198&apikey=f29c80cb&t=lalaland';
+               
                 movies.forEach(element =>  {
+                    let url2 = `http://www.omdbapi.com/?i=tt3896198&apikey=f29c80cb&t=${element}`;
                     fetch(url2)
                     .then(response => response.json())
                     .then(data => {
+                        console.log(data);
+
                       
             }).catch(err => console.log(err))
                 });
