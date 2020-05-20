@@ -1,0 +1,10 @@
+{
+    "actions": ["Midway","Fast"],
+    "comedies": ["hotrod","Big"],
+    "romantic": ["me before you"],
+    "adventure": ["avenger"],
+    "musicals": ["lalaland"],
+    "dramas": ["joker"],
+    "horror": ["Saw"],
+    "scienceFiction": ["Star Wars"]
+}
