@@ -3,15 +3,15 @@ const coolMovies = require('./movieList.json')
 
 let keepRunning = true;
 let movieAppMessage = "Hello , we are happy that you are on our app, we recomend you this movies:"
-let movies = [];
+let movieMessage = ' ';
 const mailgun = require("mailgun-js");
 const DOMAIN = "sandbox05185197488b4b23967712dc2b077597.mailgun.org";
 const mg = mailgun({apiKey: "690467effb55c56921b6e5812aa5ab5f-e5e67e3e-6c51f431", domain: DOMAIN});
-const data = {
+const text = {
 	from: "Mailgun Sandbox <postmaster@sandbox05185197488b4b23967712dc2b077597.mailgun.org>",
 	to: "rafanetow@gmail.com",
 	subject: "Hello",
-	text: "Testing some Mailgun awesomness!"
+	text: "Hello There , you make some subscribe to my page and this are the movies for you:"
 };
 /*
 mg.messages().send(data, function (error, body) {
@@ -38,6 +38,8 @@ function run() {
                     .then(response => response.json())
                     .then(data => {
                         console.log(data);
+                        text = text + ` `
+                        
 
                       
             }).catch(err => console.log(err))
