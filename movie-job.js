@@ -16,7 +16,6 @@ let email = {
 
 
 function run() {
-    console.log("entro")
     if (keepRunning) {
         
         const url = 'https://moive-app-backend.herokuapp.com/api/movies';
@@ -49,7 +48,8 @@ function run() {
                 });
             })
             .catch(err => console.log(err))
-        setTimeout(run, "8640000");
-        //8640000
+    
     }}
-    setTimeout(run, "8640000")
+
+    run()
+ 
