@@ -10,41 +10,46 @@ const mg = mailgun({ apiKey: "690467effb55c56921b6e5812aa5ab5f-e5e67e3e-6c51f431
 let email = {
     from: "Mailgun Sandbox <postmaster@sandbox05185197488b4b23967712dc2b077597.mailgun.org>",
     to: "rafanetow@gmail.com",
-    subject: "Hello",
+    subject: "Movie app",
     text: "Hello There , you make some subscribe to my page and this are the movies for you:"
 };
 
 
 function run() {
+    console.log("entro")
     if (keepRunning) {
-        const url = 'http://localhost:8080/api/movies';
+        
+        const url = 'https://moive-app-backend.herokuapp.com/api/movies';
         fetch(url)
             .then(response => response.json())
             .then(data => {
+                console.log(data.l);
                 data.forEach(user => {
                     let movies = user.typeOfMovies.split(",");
                     let userEmail = user.email;
-                    email.to = userEmail;
+                   email.to = userEmail;
+
+                    console.log(movies)
                     movies.forEach(element => {
                         let url2 = `http://www.omdbapi.com/?i=tt3896198&apikey=f29c80cb&t=${coolMovies[element]}`;
                         fetch(url2)
                             .then(response => response.json())
                             .then(data => {
-                                email.text = email.text + `Title: ${data.Title} Year: ${data.Year} Rate: ${data.Rated} Actors:${data.Actors} Ploto:${data.Plot}`
-                            }).then(() => {
-
-                                mg.messages().send(email, function (error, body) {
-                                    console.log(body);
-
-                                });
+                                email.text = email.text + `Title: ${data.Title} Year: ${data.Year} Rate: ${data.Rated} Actors:${data.Actors} Ploto:${data.Plot}`;
+                                console.log(email)
                             })
                     });
+                    });
                
-            }).
-                    catch(err => console.log(err))
+            }).then(() => {
+            
+                mg.messages().send(email, function (error, body) {
+                    console.log(body);
 
-                    .catch(err => console.log(err))
-                setTimeout(run, "50000");
+                });
             })
+            .catch(err => console.log(err))
+        setTimeout(run, "8640000");
+        //8640000
     }}
-    setTimeout(run, "5000")
+    setTimeout(run, "8640000")
